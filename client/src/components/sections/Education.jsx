@@ -57,7 +57,7 @@ function TimelineEntry({ entry, index }) {
 
 export default function Education() {
   return (
-    <ol className="relative ml-1 max-w-3xl space-y-8 border-l border-red/80 pl-8 md:pl-12">
+    <ol className="neo-glow-left relative ml-1 max-w-3xl space-y-8 border-l border-red/80 pl-8 md:pl-12">
       {education.map((entry, index) => (
         <TimelineEntry key={entry.institution} entry={entry} index={index} />
       ))}

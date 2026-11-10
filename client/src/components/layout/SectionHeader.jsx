@@ -1,7 +1,7 @@
 export default function SectionHeader({ headingId, index, label, title }) {
   return (
     <header className="mb-12 md:mb-16">
-      <p className="inline-flex items-center gap-3 border-b border-red pb-2 font-mono text-xs uppercase tracking-[0.25em] text-muted">
+      <p className="neo-glow-bottom inline-flex items-center gap-3 border-b border-red pb-2 font-mono text-xs uppercase tracking-[0.25em] text-muted">
         <span className="text-ink">{index}</span>
         <span aria-hidden="true" className="text-line">
           /

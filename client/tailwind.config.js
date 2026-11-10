@@ -16,6 +16,7 @@ export default {
       ink: token('ink'),
       muted: token('muted'),
       line: token('line'),
+      danger: token('danger'),
     },
     fontFamily: {
       display: ['"Chakra Petch"', 'sans-serif'],

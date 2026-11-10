@@ -5,6 +5,7 @@ import Navbar from './components/layout/Navbar';
 import Section from './components/layout/Section';
 import SectorDivider from './components/layout/SectorDivider';
 import About from './components/sections/About';
+import Coding from './components/sections/Coding';
 import Contact from './components/sections/Contact';
 import Education from './components/sections/Education';
 import Playground from './components/sections/Playground';
@@ -17,6 +18,7 @@ const sectionContent = {
   about: About,
   skills: Skills,
   projects: Projects,
+  coding: Coding,
   education: Education,
   contact: Contact,
   playground: Playground,

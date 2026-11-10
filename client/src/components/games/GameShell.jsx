@@ -105,7 +105,7 @@ function ScoreSubmit({ score, onSubmit }) {
       {state.status === 'error' && (
         <p
           id="score-initials-error"
-          className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-red"
+          className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-danger"
         >
           {state.message}
         </p>

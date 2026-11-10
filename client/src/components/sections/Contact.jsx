@@ -37,11 +37,14 @@ function Field({ field, value, error, onChange, inputRef }) {
         aria-invalid={Boolean(error)}
         aria-describedby={error ? errorId : undefined}
         rows={multiline ? 6 : undefined}
-        className={`${INPUT} ${multiline ? 'resize-y' : ''} ${error ? 'border-red' : 'border-line'}`}
+        className={`${INPUT} ${multiline ? 'resize-y' : ''} ${error ? 'border-danger' : 'border-line'}`}
         {...attrs}
       />
       {error && (
-        <p id={errorId} className="mt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-red">
+        <p
+          id={errorId}
+          className="mt-2 font-mono text-[11px] uppercase tracking-[0.15em] text-danger"
+        >
           {error}
         </p>
       )}
@@ -105,7 +108,7 @@ export default function Contact() {
           {formError && (
             <p
               role="alert"
-              className="border-l-2 border-red bg-red/10 px-4 py-3 font-mono text-xs uppercase tracking-[0.15em] text-ink"
+              className="border-l-2 border-danger bg-danger/10 px-4 py-3 font-mono text-xs uppercase tracking-[0.15em] text-ink"
             >
               {formError}
             </p>

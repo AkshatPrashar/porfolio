@@ -1,15 +1,19 @@
-export function readNumber(key) {
+export function readString(key) {
   try {
-    return Number(window.localStorage.getItem(key)) || 0;
+    return window.localStorage.getItem(key);
   } catch {
-    return 0;
+    return null;
   }
 }
 
-export function writeNumber(key, value) {
+export function writeString(key, value) {
   try {
-    window.localStorage.setItem(key, String(value));
+    window.localStorage.setItem(key, value);
   } catch {
     // Storage can be unavailable (private mode, blocked site data); the in-memory value still applies.
   }
 }
+
+export const readNumber = (key) => Number(readString(key)) || 0;
+
+export const writeNumber = (key, value) => writeString(key, String(value));
