@@ -45,11 +45,11 @@ export default function Navbar() {
         </a>
 
         <div className="flex items-center gap-2">
-          <ul className="hidden items-center xl:flex">{links}</ul>
+          <ul className="hidden items-center lg:flex">{links}</ul>
           <ThemeToggle />
           <button
             type="button"
-            className="-mr-2 p-2 text-ink xl:hidden"
+            className="-mr-2 p-2 text-ink lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -63,7 +63,7 @@ export default function Navbar() {
       <ul
         id="mobile-nav"
         hidden={!open}
-        className="container-garage border-t border-line/60 bg-black py-3 xl:hidden"
+        className="container-garage border-t border-line/60 bg-black py-3 lg:hidden"
       >
         {links}
       </ul>
