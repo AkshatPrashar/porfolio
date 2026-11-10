@@ -1,6 +1,6 @@
 import SectionHeader from './SectionHeader';
 
-export default function Section({ id, index, label, title, hero = false, children }) {
+export default function Section({ id, label, title, hero = false, children }) {
   const headingId = `${id}-heading`;
   const layout = hero
     ? 'flex min-h-svh flex-col justify-center pb-32 pt-[calc(var(--nav-height)+4rem)]'
@@ -18,7 +18,7 @@ export default function Section({ id, index, label, title, hero = false, childre
         className="pointer-events-none absolute inset-0 -z-10 bg-track-grid"
       />
       <div className="container-garage">
-        <SectionHeader headingId={headingId} index={index} label={label} title={title} />
+        <SectionHeader headingId={headingId} label={label} title={title} />
         {children}
       </div>
     </section>

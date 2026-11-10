@@ -2,34 +2,34 @@ export const projects = [
   {
     id: 'synapse-care',
     title: 'Synapse Care',
-    featured: true,
-    description: 'Placeholder: a one-line summary of what Synapse Care does and who it helps.',
-    tech: ['React', 'Node', 'Express', 'MongoDB'],
+    description:
+      'AI-powered healthcare triage application with real-time wound assessment and multilingual prescription summaries, applying GenAI and prompt engineering techniques. Improved accessibility for non-English patients via integrated speech and language processing.',
+    tech: ['Gemini API', 'Sarvam API', 'GenAI', 'Prompt Engineering'],
     links: {
-      repo: 'https://github.com/your-username/synapse-care',
-      live: 'https://synapse-care.example.com',
+      repo: 'https://github.com/FarhanImtiaz/IEDC_Hackathon_Syntax_Titans',
+      live: '',
     },
   },
   {
     id: 'streakies',
     title: 'Streakies',
-    featured: false,
-    description: 'Placeholder: a one-line summary of what Streakies does and who it helps.',
-    tech: ['React', 'Node', 'MongoDB'],
+    description:
+      'Habit-tracking web application with calendar-based scheduling, streak analytics, and an AI-powered coaching chatbot. Implemented secure JWT-based authentication with bcrypt password hashing, email verification, and transactional notifications. Designed RESTful Express APIs for user and session management.',
+    tech: ['Node.js', 'Express', 'JWT', 'MongoDB', 'HTML', 'CSS', 'SendGrid'],
     links: {
-      repo: 'https://github.com/your-username/streakies',
-      live: 'https://streakies.example.com',
+      repo: 'https://github.com/AkshatPrashar/Streakies',
+      live: 'https://habit-tracker-app-nine-sigma.vercel.app/login',
     },
   },
   {
     id: 'ecommerce-management',
-    title: 'E-commerce Management App',
-    featured: false,
-    description: 'Placeholder: a one-line summary of what the E-commerce Management App does.',
-    tech: ['React', 'Express', 'MongoDB', 'REST API'],
+    title: 'E-Commerce Management System',
+    description:
+      'Developed the front-end interface for a full-stack e-commerce platform. Built a dark-mode glassmorphic dashboard with live metrics cards, a dual-pane order workspace, and instant search/filtering using client-side JavaScript. Implemented form validations, dynamic subtotal calculations, and interactive delete prompts.',
+    tech: ['Flask', 'Oracle DB', 'PL/SQL', 'JavaScript'],
     links: {
-      repo: 'https://github.com/your-username/ecommerce-management-app',
-      live: 'https://ecommerce-management.example.com',
+      repo: 'https://github.com/AmoghaKA/DBMS-Project',
+      live: '',
     },
   },
 ];

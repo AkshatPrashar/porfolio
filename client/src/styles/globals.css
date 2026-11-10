@@ -13,8 +13,39 @@
     --color-ink: 245 245 245; /* #F5F5F5 */
     --color-muted: 138 138 138; /* #8A8A8A */
     --color-line: 58 58 58; /* #3A3A3A */
+    --color-danger: 255 59 48; /* #FF3B30 */
 
     --nav-height: 4rem;
+
+    color-scheme: dark;
+  }
+
+  :root[data-theme='light'] {
+    --color-black: 247 247 248; /* #F7F7F8 */
+    --color-carbon: 241 241 243; /* #F1F1F3 */
+    --color-surface: 255 255 255; /* #FFFFFF */
+    --color-red: 196 5 0; /* #C40500 */
+    --color-green: 0 122 61; /* #007A3D */
+    --color-purple: 122 31 184; /* #7A1FB8 */
+    --color-ink: 17 17 17; /* #111111 */
+    --color-muted: 77 77 82; /* #4D4D52 */
+    --color-line: 201 201 206; /* #C9C9CE */
+    --color-danger: 196 5 0; /* #C40500 */
+
+    color-scheme: light;
+  }
+
+  :root[data-theme='neo'] {
+    --color-black: 1 6 3; /* #010603 */
+    --color-carbon: 4 16 10; /* #04100A */
+    --color-surface: 8 26 16; /* #081A10 */
+    --color-red: 57 255 20; /* #39FF14 */
+    --color-green: 0 255 163; /* #00FFA3 */
+    --color-purple: 0 209 255; /* #00D1FF */
+    --color-ink: 232 255 238; /* #E8FFEE */
+    --color-muted: 127 217 154; /* #7FD99A */
+    --color-line: 42 122 72; /* #2A7A48 */
+    --color-danger: 255 77 106; /* #FF4D6A */
 
     color-scheme: dark;
   }
@@ -31,6 +62,15 @@
 
   ::selection {
     @apply bg-red text-ink;
+  }
+
+  :root[data-theme='light'] ::selection,
+  :root[data-theme='neo'] ::selection {
+    @apply text-surface;
+  }
+
+  :root[data-theme='neo'] :is(h1, h2) {
+    text-shadow: 0 0 22px rgb(var(--color-red) / 0.35);
   }
 
   :focus-visible {
@@ -76,6 +116,16 @@
       transition-duration: 0.01ms !important;
     }
   }
+}
+
+::view-transition-group(*) {
+  animation-duration: 450ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
 }
 
 @layer components {
@@ -135,6 +185,17 @@
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
   }
 
+  .chamfer-card {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 20px) 0,
+      100% 20px,
+      100% 100%,
+      20px 100%,
+      0 calc(100% - 20px)
+    );
+  }
+
   .mask-vignette {
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 72%);
   }
@@ -168,6 +229,18 @@
     .marquee-track {
       animation: none;
     }
+  }
+
+  [data-theme='neo'] .neo-glow {
+    box-shadow: 0 0 10px rgb(var(--color-red) / 0.7);
+  }
+
+  [data-theme='neo'] .neo-glow-bottom {
+    box-shadow: 0 8px 12px -8px rgb(var(--color-red) / 0.8);
+  }
+
+  [data-theme='neo'] .neo-glow-left {
+    box-shadow: -8px 0 12px -8px rgb(var(--color-red) / 0.8);
   }
 
   .bg-track-grid {

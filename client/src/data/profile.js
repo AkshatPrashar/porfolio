@@ -1,8 +1,9 @@
-const [photoSrc = null] = Object.values(
-  import.meta.glob('../assets/profile.webp', { eager: true, import: 'default' }),
-);
+import { FaLinkedin } from 'react-icons/fa6';
+import { MdOutlineEmail } from 'react-icons/md';
+import { SiGithub } from 'react-icons/si';
+import photoSrc from '../assets/aks_photo.jpeg';
 
-const name = 'Your Name';
+const name = 'Akshat';
 
 export const profile = {
   name,
@@ -10,8 +11,12 @@ export const profile = {
   status: 'AVAILABLE FOR WORK',
   photo: { src: photoSrc, alt: `Portrait of ${name}`, position: 'center 25%' },
   socials: [
-    { label: 'GitHub', href: '#' },
-    { label: 'LinkedIn', href: '#' },
-    { label: 'Email', href: '#' },
+    { label: 'GitHub', href: 'https://github.com/AkshatPrashar', icon: SiGithub },
+    {
+      label: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/akshat-prashar-487ba332a/',
+      icon: FaLinkedin,
+    },
+    { label: 'Email', href: 'mailto:akshat.prashar104@gmail.com', icon: MdOutlineEmail },
   ],
 };
