@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-black: 0 0 0; /* #000000 */
+    --color-carbon: 10 10 10; /* #0A0A0A */
+    --color-surface: 17 17 17; /* #111111 */
+    --color-red: 225 6 0; /* #E10600 */
+    --color-green: 0 230 118; /* #00E676 */
+    --color-purple: 176 38 255; /* #B026FF */
+    --color-ink: 245 245 245; /* #F5F5F5 */
+    --color-muted: 138 138 138; /* #8A8A8A */
+    --color-line: 58 58 58; /* #3A3A3A */
+
+    --nav-height: 4rem;
+
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-height);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-black font-sans text-base leading-relaxed text-muted antialiased;
+  }
+
+  ::selection {
+    @apply bg-red text-ink;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-red));
+    outline-offset: 3px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--color-black));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-line));
+    border: 2px solid rgb(var(--color-black));
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-red));
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: rgb(var(--color-line)) rgb(var(--color-black));
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .container-garage {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:bg-red focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest focus:text-ink;
+  }
+
+  .nav-link {
+    @apply relative inline-block px-3 py-2 font-mono text-xs uppercase tracking-[0.18em] text-muted transition-colors duration-200 hover:text-ink;
+  }
+
+  .nav-link::after {
+    content: '';
+    @apply absolute inset-x-3 bottom-0 h-px origin-left scale-x-0 bg-red transition-transform duration-300;
+  }
+
+  .nav-link:hover::after,
+  .nav-link[aria-current='true']::after {
+    @apply scale-x-100;
+  }
+
+  .nav-link[aria-current='true'] {
+    @apply text-ink;
+  }
+}
+
+@layer utilities {
+  .bg-carbon-fiber {
+    background-color: rgb(var(--color-carbon));
+    background-image:
+      linear-gradient(27deg, rgb(var(--color-black) / 0.55) 5px, transparent 5px),
+      linear-gradient(207deg, rgb(var(--color-black) / 0.55) 5px, transparent 5px),
+      linear-gradient(27deg, rgb(var(--color-ink) / 0.025) 5px, transparent 5px),
+      linear-gradient(207deg, rgb(var(--color-ink) / 0.025) 5px, transparent 5px),
+      linear-gradient(90deg, rgb(var(--color-ink) / 0.012) 10px, transparent 10px),
+      linear-gradient(
+        rgb(var(--color-ink) / 0.018) 25%,
+        transparent 25%,
+        transparent 75%,
+        rgb(var(--color-ink) / 0.025) 75%
+      );
+    background-position:
+      0 5px,
+      10px 0,
+      0 10px,
+      10px 5px,
+      0 0,
+      0 0;
+    background-size: 20px 20px;
+  }
+
+  .chamfer-br {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  }
+
+  .mask-vignette {
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 72%);
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .bg-scanlines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgb(var(--color-black) / 0.55) 0 1px,
+      transparent 1px 3px
+    );
+  }
+
+  .marquee {
+    overflow: hidden;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow-x: auto;
+    }
+
+    .marquee-track {
+      animation: none;
+    }
+  }
+
+  .bg-track-grid {
+    background-image:
+      linear-gradient(rgb(var(--color-line) / 0.22) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--color-line) / 0.22) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+  }
+}
