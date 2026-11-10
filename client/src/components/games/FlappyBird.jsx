@@ -180,7 +180,7 @@ export default function FlappyBird() {
 
   return (
     <GameShell
-      title="Slipstream"
+      title="FlappyCar"
       hint="Space, ↑ or tap to lift. Thread the pit-wall gaps."
       stats={[
         { label: 'Score', value: score },
@@ -195,7 +195,7 @@ export default function FlappyBird() {
       <canvas
         ref={canvasRef}
         role="img"
-        aria-label="Slipstream playfield"
+        aria-label="FlappyCar playfield"
         onPointerDown={(event) => {
           event.preventDefault();
           flap();

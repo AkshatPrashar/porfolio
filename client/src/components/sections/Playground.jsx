@@ -22,7 +22,7 @@ const GAMES = [
   },
   {
     id: 'flappy',
-    title: 'Slipstream',
+    title: 'FlappyCar',
     blurb: 'Thread the car through the pit-wall gaps. One tap to lift, gravity does the rest.',
     controls: ['Space', '↑', 'Tap'],
     ranked: true,

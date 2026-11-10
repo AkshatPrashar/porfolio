@@ -88,7 +88,7 @@ function ProjectCard({ project, featured, onFeature, headingRef }) {
       </ul>
 
       <div className="relative z-10 mt-6 flex flex-wrap gap-3">
-        {LINKS.map(({ key, label, Icon, describe }) => (
+        {LINKS.filter(({ key }) => links[key]).map(({ key, label, Icon, describe }) => (
           <a
             key={key}
             href={links[key]}
