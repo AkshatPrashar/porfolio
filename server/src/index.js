@@ -7,27 +7,22 @@ const REQUIRED_ENV = ['CLIENT_ORIGIN', 'RESEND_API_KEY', 'CONTACT_TO_EMAIL', 'CO
 const missing = REQUIRED_ENV.filter((key) => !process.env[key]);
 if (missing.length) {
   console.error(`[server] Missing required environment variables: ${missing.join(', ')}`);
-  if (process.env.NODE_ENV !== 'production') {
-    process.exit(1);
-  }
+  // REMOVED process.exit(1) so Vercel doesn't crash the function
 }
 
-// Start the DB connection (it handles its own caching internally now)
+// Connect to DB
 connectDB().catch((err) => {
   console.error('[server] Database connection failed:', err.message);
 });
 
-// ONLY listen if we are running locally (not on Vercel)
+// ONLY listen locally. Vercel handles routing automatically.
 if (process.env.NODE_ENV !== 'production') {
   const port = Number(process.env.PORT) || 5000;
   app.listen(port, (err) => {
-    if (err) {
-      console.error(`[server] Failed to start: ${err.message}`);
-      process.exit(1);
-    }
-    console.log(`[server] Listening on port ${port}`);
+    if (err) console.error(`[server] Failed to start: ${err.message}`);
+    else console.log(`[server] Listening on port ${port}`);
   });
 }
 
-// Export the Express app for Vercel Serverless Functions
+// Export the app for Vercel
 export default app;

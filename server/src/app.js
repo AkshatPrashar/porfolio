@@ -4,7 +4,10 @@ import helmet from 'helmet';
 import contactRoutes from './routes/contact.routes.js';
 import scoreRoutes from './routes/score.routes.js';
 
-const allowedOrigins = process.env.CLIENT_ORIGIN.split(',')
+// SAFE: Fallback to an empty string if the variable is missing
+const clientOrigin = process.env.CLIENT_ORIGIN || '';
+const allowedOrigins = clientOrigin
+  .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
 
