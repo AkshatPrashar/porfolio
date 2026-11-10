@@ -11,6 +11,7 @@ import {
   SiMongodb,
   SiNodedotjs,
   SiPostman,
+  SiResend,
   SiTailwindcss,
   SiVercel,
 } from 'react-icons/si';
@@ -50,7 +51,7 @@ export const skillCategories = [
       { name: 'REST API', icon: null },
       { name: 'Gemini API', icon: SiGooglegemini },
       { name: 'Sarvam API', icon: null },
-      { name: 'SendGrid API', icon: null },
+      { name: 'Resend API', icon: SiResend },
     ],
   },
   {

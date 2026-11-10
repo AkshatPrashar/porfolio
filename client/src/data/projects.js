@@ -2,7 +2,6 @@ export const projects = [
   {
     id: 'synapse-care',
     title: 'Synapse Care',
-    featured: true,
     description: 'Placeholder: a one-line summary of what Synapse Care does and who it helps.',
     tech: ['React', 'Node', 'Express', 'MongoDB'],
     links: {
@@ -13,7 +12,6 @@ export const projects = [
   {
     id: 'streakies',
     title: 'Streakies',
-    featured: false,
     description: 'Placeholder: a one-line summary of what Streakies does and who it helps.',
     tech: ['React', 'Node', 'MongoDB'],
     links: {
@@ -24,7 +22,6 @@ export const projects = [
   {
     id: 'ecommerce-management',
     title: 'E-commerce Management App',
-    featured: false,
     description: 'Placeholder: a one-line summary of what the E-commerce Management App does.',
     tech: ['React', 'Express', 'MongoDB', 'REST API'],
     links: {

@@ -9,9 +9,10 @@ export default function ChamferCard({
   className = '',
   bodyClassName = '',
   children,
+  ...props
 }) {
   return (
-    <Tag className={`${interactive ? INTERACTIVE : ''} ${className}`}>
+    <Tag {...props} className={`${interactive ? INTERACTIVE : ''} ${className}`}>
       <div
         className={`chamfer-card h-full bg-line/70 p-px ${interactive ? INTERACTIVE_FRAME : ''}`}
       >

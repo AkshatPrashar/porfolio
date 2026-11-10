@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import Footer from './components/layout/Footer';
 import LapBar from './components/layout/LapBar';
 import Navbar from './components/layout/Navbar';
 import Section from './components/layout/Section';
@@ -43,6 +44,7 @@ export default function App() {
           );
         })}
       </main>
+      <Footer />
     </>
   );
 }

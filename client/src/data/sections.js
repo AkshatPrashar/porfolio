@@ -1,8 +1,8 @@
 const SECTIONS = [
   { id: 'about', label: 'About', hero: true },
-  { id: 'skills', label: 'Skills', title: 'Power Unit' },
-  { id: 'projects', label: 'Projects', title: 'Race Builds' },
-  { id: 'education', label: 'Education', title: 'Career Timeline' },
+  { id: 'skills', label: 'Skills', title: 'Skills' },
+  { id: 'projects', label: 'Projects', title: 'Builds' },
+  { id: 'education', label: 'Education', title: 'Education' },
   { id: 'contact', label: 'Collaborate', title: "Let's Collaborate" },
   { id: 'playground', label: 'Playground', title: 'Take a Lap' },
 ];

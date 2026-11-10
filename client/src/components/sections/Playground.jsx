@@ -7,7 +7,7 @@ const GAMES = [
   {
     id: 'tictactoe',
     title: 'Tic-Tac-Toe',
-    blurb: 'The classic 3×3 duel for two drivers on one screen.',
+    blurb: 'Take on the computer in the classic 3×3 duel. You start as X.',
     controls: ['Click', 'Tab', 'Enter'],
     ranked: false,
     Game: lazy(() => import('../games/TicTacToe')),

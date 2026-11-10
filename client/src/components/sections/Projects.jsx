@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { ExternalLink } from 'lucide-react';
 import { SiGithub } from 'react-icons/si';
 import { projects } from '../../data/projects';
@@ -7,10 +9,15 @@ const LINKS = [
   { key: 'repo', label: 'Repo', Icon: SiGithub, describe: 'source code on GitHub' },
   { key: 'live', label: 'Live', Icon: ExternalLink, describe: 'live site' },
 ];
+const PROJECTS_BY_ID = Object.fromEntries(
+  projects.map((project, i) => [
+    project.id,
+    { ...project, number: String(i + 1).padStart(2, '0') },
+  ]),
+);
 
-function ProjectCard({ project, index }) {
-  const { title, description, tech, links, featured } = project;
-  const number = String(index + 1).padStart(2, '0');
+function ProjectCard({ project, featured, onFeature, headingRef }) {
+  const { id, title, description, tech, links, number } = project;
 
   return (
     <ChamferCard
@@ -18,6 +25,7 @@ function ProjectCard({ project, index }) {
       interactive
       className={`h-full ${featured ? 'md:col-span-2 lg:row-span-2' : ''}`}
       bodyClassName={`flex flex-col overflow-hidden ${featured ? 'p-6 sm:p-10' : 'p-6'}`}
+      style={{ viewTransitionName: `project-${id}` }}
     >
       <span
         aria-hidden="true"
@@ -37,15 +45,34 @@ function ProjectCard({ project, index }) {
           P<span className="text-line">/</span>
           {number}
         </span>
-        {featured && <span className="text-red">Featured</span>}
+        {featured ? (
+          <span className="text-red">Featured</span>
+        ) : (
+          <span aria-hidden="true" className="text-muted transition-colors group-hover:text-ink">
+            Expand ↗
+          </span>
+        )}
       </div>
 
       <h3
-        className={`mt-6 font-display font-bold uppercase leading-tight text-ink ${
+        ref={headingRef}
+        tabIndex={-1}
+        className={`mt-6 font-display font-bold uppercase leading-tight text-ink focus:outline-none ${
           featured ? 'text-3xl sm:text-5xl' : 'text-2xl'
         }`}
       >
-        {title}
+        {featured ? (
+          title
+        ) : (
+          <button
+            type="button"
+            onClick={() => onFeature(id)}
+            className="text-left uppercase after:absolute after:inset-0 after:content-[''] focus-visible:outline-none"
+          >
+            {title}
+            <span className="sr-only">, show as featured build</span>
+          </button>
+        )}
       </h3>
       <p className={`mt-3 max-w-xl ${featured ? 'sm:text-lg' : 'text-sm'}`}>{description}</p>
 
@@ -60,7 +87,7 @@ function ProjectCard({ project, index }) {
         ))}
       </ul>
 
-      <div className="mt-6 flex flex-wrap gap-3">
+      <div className="relative z-10 mt-6 flex flex-wrap gap-3">
         {LINKS.map(({ key, label, Icon, describe }) => (
           <a
             key={key}
@@ -68,7 +95,7 @@ function ProjectCard({ project, index }) {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`${title} ${describe} (opens in a new tab)`}
-            className="inline-flex items-center gap-2 border border-line px-3 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:border-red hover:text-ink"
+            className="inline-flex items-center gap-2 border border-line bg-surface px-3 py-2 font-mono text-xs uppercase tracking-[0.2em] text-muted transition-colors hover:border-red hover:text-ink"
           >
             <Icon aria-hidden="true" className="h-3.5 w-3.5" />
             {label}
@@ -80,10 +107,47 @@ function ProjectCard({ project, index }) {
 }
 
 export default function Projects() {
+  const [order, setOrder] = useState(() => projects.map(({ id }) => id));
+  const featuredId = order[0];
+  const headingRefs = useRef({});
+  const focusFeaturedRef = useRef(false);
+
+  useEffect(() => {
+    if (!focusFeaturedRef.current) return;
+    focusFeaturedRef.current = false;
+    headingRefs.current[featuredId]?.focus();
+  }, [featuredId]);
+
+  const feature = (id) => {
+    const swap = () =>
+      setOrder((current) => {
+        const next = [...current];
+        const slot = next.indexOf(id);
+        [next[0], next[slot]] = [next[slot], next[0]];
+        return next;
+      });
+
+    focusFeaturedRef.current = true;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (document.startViewTransition && !reduceMotion) {
+      document.startViewTransition(() => flushSync(swap));
+    } else {
+      swap();
+    }
+  };
+
   return (
     <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
-      {projects.map((project, index) => (
-        <ProjectCard key={project.id} project={project} index={index} />
+      {order.map((id) => (
+        <ProjectCard
+          key={id}
+          project={PROJECTS_BY_ID[id]}
+          featured={id === featuredId}
+          onFeature={feature}
+          headingRef={(node) => {
+            headingRefs.current[id] = node;
+          }}
+        />
       ))}
     </div>
   );

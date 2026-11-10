@@ -78,6 +78,16 @@
   }
 }
 
+::view-transition-group(*) {
+  animation-duration: 450ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
 @layer components {
   .container-garage {
     @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
