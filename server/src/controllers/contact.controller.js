@@ -1,8 +1,10 @@
 import { Resend } from 'resend';
 import { Message } from '../models/message.models.js';
+import connectDB from '../db/index.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+let resend = null;
+const getResend = () => (resend ??= new Resend(process.env.RESEND_API_KEY));
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CONTROL_CHARS = /[\u0000-\u001f\u007f]/;
@@ -58,9 +60,10 @@ export const sendContact = asyncHandler(async (req, res) => {
     return res.status(400).json({ ok: false, errors });
   }
 
-  const record = await Message.create(input).catch(logSkipped('Save'));
+  const stored = await connectDB();
+  const record = stored ? await Message.create(input).catch(logSkipped('Save')) : null;
 
-  const { error } = await resend.emails.send(buildEmail(input));
+  const { error } = await getResend().emails.send(buildEmail(input));
 
   if (record) {
     await Message.updateOne({ _id: record._id }, { status: error ? 'failed' : 'sent' }).catch(

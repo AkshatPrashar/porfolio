@@ -1,11 +1,10 @@
-import mongoose from 'mongoose';
 import { GAMES, NAME_COLLATION, SCORE_LIMITS, Score } from '../models/score.models.js';
+import connectDB from '../db/index.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 const LEADERBOARD_SIZE = 10;
 const NAME_PATTERN = /^[A-Za-z0-9 ._-]{3,16}$/;
 
-const isDbReady = () => mongoose.connection.readyState === 1;
 const offline = (res) => res.status(503).json({ ok: false, error: 'Leaderboard is offline.' });
 const nameTaken = (res) =>
   res.status(409).json({ ok: false, error: 'Name already taken', field: 'name' });
@@ -17,7 +16,7 @@ export const getTopScores = asyncHandler(async (req, res) => {
   if (!GAMES.includes(game)) {
     return res.status(400).json({ ok: false, error: 'Unknown game.' });
   }
-  if (!isDbReady()) return offline(res);
+  if (!(await connectDB())) return offline(res);
 
   const scores = await Score.find({ game })
     .sort({ score: -1, createdAt: 1 })
@@ -45,7 +44,7 @@ export const submitScore = asyncHandler(async (req, res) => {
   if (Object.keys(errors).length) {
     return res.status(400).json({ ok: false, errors });
   }
-  if (!isDbReady()) return offline(res);
+  if (!(await connectDB())) return offline(res);
 
   const taken = await Score.exists({ name, game }).collation(NAME_COLLATION);
   if (taken) return nameTaken(res);
