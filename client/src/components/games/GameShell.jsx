@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useLeaderboard from '../../hooks/useLeaderboard';
 import DrsButton from '../ui/DrsButton';
 
 const INITIALS_PATTERN = /^[A-Za-z0-9 ._-]{3,16}$/;
+const NAME_TAKEN_MESSAGE = 'Name not available. Please choose another.';
 
 function TimingScreen({ status, scores }) {
   return (
@@ -42,6 +43,7 @@ function TimingScreen({ status, scores }) {
 function ScoreSubmit({ score, onSubmit }) {
   const [name, setName] = useState('');
   const [state, setState] = useState({ status: 'idle', message: '' });
+  const inputRef = useRef(null);
 
   if (score < 1) {
     return (
@@ -59,6 +61,11 @@ function ScoreSubmit({ score, onSubmit }) {
     );
   }
 
+  const handleChange = (event) => {
+    setName(event.target.value);
+    if (state.status === 'error') setState({ status: 'idle', message: '' });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const initials = name.trim();
@@ -71,7 +78,9 @@ function ScoreSubmit({ score, onSubmit }) {
       const rank = await onSubmit(initials, score);
       setState({ status: 'done', message: `Classified P${rank}` });
     } catch (err) {
-      setState({ status: 'error', message: err.errors?.name ?? err.message });
+      const message = err.status === 409 ? NAME_TAKEN_MESSAGE : (err.errors?.name ?? err.message);
+      setState({ status: 'error', message });
+      inputRef.current?.focus();
     }
   };
 
@@ -85,14 +94,17 @@ function ScoreSubmit({ score, onSubmit }) {
       </label>
       <div className="mt-2 flex">
         <input
+          ref={inputRef}
           id="score-initials"
           value={name}
-          onChange={(event) => setName(event.target.value)}
+          onChange={handleChange}
           maxLength={16}
           autoComplete="off"
           aria-invalid={state.status === 'error'}
           aria-describedby={state.status === 'error' ? 'score-initials-error' : undefined}
-          className="min-w-0 flex-1 border border-line bg-black px-3 py-2 font-mono text-sm uppercase tracking-[0.2em] text-ink"
+          className={`min-w-0 flex-1 border bg-black px-3 py-2 font-mono text-sm uppercase tracking-[0.2em] text-ink ${
+            state.status === 'error' ? 'border-danger' : 'border-line'
+          }`}
         />
         <button
           type="submit"
@@ -105,7 +117,8 @@ function ScoreSubmit({ score, onSubmit }) {
       {state.status === 'error' && (
         <p
           id="score-initials-error"
-          className="mt-2 font-mono text-[10px] uppercase tracking-[0.15em] text-danger"
+          role="alert"
+          className="mt-2 inline-block border border-danger/60 bg-danger/10 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-danger"
         >
           {state.message}
         </p>

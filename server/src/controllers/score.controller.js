@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { GAMES, SCORE_LIMITS, Score } from '../models/score.models.js';
+import { GAMES, NAME_COLLATION, SCORE_LIMITS, Score } from '../models/score.models.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 const LEADERBOARD_SIZE = 10;
@@ -7,6 +7,9 @@ const NAME_PATTERN = /^[A-Za-z0-9 ._-]{3,16}$/;
 
 const isDbReady = () => mongoose.connection.readyState === 1;
 const offline = (res) => res.status(503).json({ ok: false, error: 'Leaderboard is offline.' });
+const nameTaken = (res) =>
+  res.status(409).json({ ok: false, error: 'Name already taken', field: 'name' });
+const DUPLICATE_KEY = 11000;
 
 export const getTopScores = asyncHandler(async (req, res) => {
   const { game } = req.params;
@@ -44,7 +47,15 @@ export const submitScore = asyncHandler(async (req, res) => {
   }
   if (!isDbReady()) return offline(res);
 
-  await Score.create({ name, game, score });
+  const taken = await Score.exists({ name, game }).collation(NAME_COLLATION);
+  if (taken) return nameTaken(res);
+
+  const created = await Score.create({ name, game, score }).catch((err) => {
+    if (err.code === DUPLICATE_KEY) return null;
+    throw err;
+  });
+  if (!created) return nameTaken(res);
+
   const rank = await Score.countDocuments({ game, score: { $gte: score } });
 
   return res.status(201).json({ ok: true, rank });
