@@ -3,7 +3,7 @@ import { GAMES, SCORE_LIMITS, Score } from '../models/score.models.js';
 import asyncHandler from '../utils/asyncHandler.js';
 
 const LEADERBOARD_SIZE = 10;
-const NAME_PATTERN = /^[A-Za-z0-9 ._-]{1,16}$/;
+const NAME_PATTERN = /^[A-Za-z0-9 ._-]{3,16}$/;
 
 const isDbReady = () => mongoose.connection.readyState === 1;
 const offline = (res) => res.status(503).json({ ok: false, error: 'Leaderboard is offline.' });
@@ -32,7 +32,7 @@ export const submitScore = asyncHandler(async (req, res) => {
 
   const errors = {};
   if (!NAME_PATTERN.test(name)) {
-    errors.name = 'Name must be 1–16 letters, numbers, spaces, or . _ -';
+    errors.name = 'Initials must be 3–16 letters, numbers, spaces, or . _ -';
   }
   if (!GAMES.includes(game)) {
     errors.game = 'Unknown game.';

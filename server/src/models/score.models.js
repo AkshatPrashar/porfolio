@@ -5,7 +5,7 @@ export const GAMES = Object.keys(SCORE_LIMITS);
 
 const scoreSchema = new Schema(
   {
-    name: { type: String, required: true, trim: true, minlength: 1, maxlength: 16 },
+    name: { type: String, required: true, trim: true, minlength: 3, maxlength: 16 },
     game: { type: String, required: true, enum: GAMES },
     score: {
       type: Number,
