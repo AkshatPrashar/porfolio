@@ -38,6 +38,10 @@ export default {
           '0%': { transform: 'translateY(-100%)' },
           '45%, 100%': { transform: 'translateY(400%)' },
         },
+        sweep: {
+          from: { transform: 'translateX(-100%)' },
+          to: { transform: 'translateX(400%)' },
+        },
         marquee: {
           from: { transform: 'translateX(0)' },
           to: { transform: 'translateX(-50%)' },
@@ -51,6 +55,7 @@ export default {
         'speed-in': 'speed-in 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both',
         'speed-line': 'speed-line 1.1s cubic-bezier(0.4, 0, 0.2, 1) both',
         scan: 'scan 7s cubic-bezier(0.45, 0, 0.55, 1) infinite',
+        sweep: 'sweep 0.9s cubic-bezier(0.4, 0, 0.2, 1)',
         marquee: 'marquee var(--marquee-duration, 40s) linear infinite',
         'pit-flow': 'pit-flow 1.6s ease-in infinite',
       },

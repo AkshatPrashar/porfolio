@@ -135,6 +135,17 @@
     clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
   }
 
+  .chamfer-card {
+    clip-path: polygon(
+      0 0,
+      calc(100% - 20px) 0,
+      100% 20px,
+      100% 100%,
+      20px 100%,
+      0 calc(100% - 20px)
+    );
+  }
+
   .mask-vignette {
     mask-image: radial-gradient(ellipse at center, black 30%, transparent 72%);
   }

@@ -52,7 +52,7 @@ export default function About() {
 
   return (
     <>
-      {photo.src && <HeroPhoto {...photo} />}
+      <HeroPhoto {...photo} />
 
       <div className="max-w-4xl">
         <div className="relative">

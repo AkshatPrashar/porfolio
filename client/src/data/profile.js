@@ -1,6 +1,4 @@
-const [photoSrc = null] = Object.values(
-  import.meta.glob('../assets/profile.webp', { eager: true, import: 'default' }),
-);
+import photoSrc from '../assets/aks_photo.jpeg';
 
 const name = 'Your Name';
 
