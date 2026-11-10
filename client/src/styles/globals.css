@@ -131,6 +131,45 @@
     background-size: 20px 20px;
   }
 
+  .chamfer-br {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+  }
+
+  .mask-vignette {
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 72%);
+  }
+
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .bg-scanlines {
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgb(var(--color-black) / 0.55) 0 1px,
+      transparent 1px 3px
+    );
+  }
+
+  .marquee {
+    overflow: hidden;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      overflow-x: auto;
+    }
+
+    .marquee-track {
+      animation: none;
+    }
+  }
+
   .bg-track-grid {
     background-image:
       linear-gradient(rgb(var(--color-line) / 0.22) 1px, transparent 1px),

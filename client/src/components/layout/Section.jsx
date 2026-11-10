@@ -3,7 +3,7 @@ import SectionHeader from './SectionHeader';
 export default function Section({ id, index, label, title, hero = false, children }) {
   const headingId = `${id}-heading`;
   const layout = hero
-    ? 'flex min-h-svh flex-col justify-center pb-16 pt-[calc(var(--nav-height)+4rem)]'
+    ? 'flex min-h-svh flex-col justify-center pb-32 pt-[calc(var(--nav-height)+4rem)]'
     : 'py-24 md:py-32';
 
   return (
