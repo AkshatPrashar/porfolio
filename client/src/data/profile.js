@@ -11,8 +11,8 @@ export const profile = {
   status: 'AVAILABLE FOR WORK',
   photo: { src: photoSrc, alt: `Portrait of ${name}`, position: 'center 25%' },
   socials: [
-    { label: 'GitHub', href: '#', icon: SiGithub },
-    { label: 'LinkedIn', href: '#', icon: FaLinkedin },
-    { label: 'Email', href: '#', icon: MdOutlineEmail },
+    { label: "GitHub", href: "https://github.com/AkshatPrashar" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/akshat-prashar-487ba332a/" },
+    { label: "Email", href: "mailto:akshat.prashar104@gmail.com" }
   ],
 };
