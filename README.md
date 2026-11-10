@@ -1,4 +1,4 @@
-# F1 Digital Garage Portfolio
+# Akshat Prashar Portfolio
 
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)
