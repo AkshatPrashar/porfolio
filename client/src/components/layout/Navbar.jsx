@@ -18,7 +18,7 @@ export default function Navbar() {
     return () => window.removeEventListener('keydown', closeOnEscape);
   }, [open]);
 
-  const links = sections.map(({ id, index, label }) => (
+  const links = sections.map(({ id, label }) => (
     <li key={id}>
       <a
         href={`#${id}`}
@@ -26,7 +26,6 @@ export default function Navbar() {
         aria-current={activeId === id ? 'true' : undefined}
         onClick={() => setOpen(false)}
       >
-        <span className="mr-2 text-red">{index}</span>
         {label}
       </a>
     </li>
